@@ -5,21 +5,24 @@ Decoder for 433MHz using SDR
 
 
 
-#GIT lazy
+//GIT lazy
 git clone https://github.com/danielbrogren/433MHz-Decoder
-#Create new branch
+//Create new branch
 git branch <new branch>
 
-#Changes to the new branch
+//Changes to the new branch
 git checkout <new branch>
 
-#do changes
+//do changes
 
-#Saves the changes on the branch
+//Saves the changes on the branch
 git commit -a -m "feature name" 
 
-#get the latest changes from repository
+//get the latest changes from repository
 git pull 
 
-#Push local info to repository
+//Push local info to repository
 git push --mirror https://github.com/ghuser/repo.git
+
+//Do pullrequest in web-interface
+
