@@ -9,7 +9,7 @@ mkfifo /tmp/gnu_radio_out
 ./float_to_bit -v /tmp/gnu_radio_out /dev/stdout
 //Start GNU-radio with 433MHz-Decoder.grc
 //or
-python top_block.py
+python decoder_433MHz.py
 
 
 
