@@ -31,7 +31,7 @@ git commit -a -m "feature name"
 git pull 
 
 //Push local info to repository
-git push --mirror https://github.com/ghuser/repo.git
+git push --mirror https://github.com/danielbrogren/433MHz-Decoder
 
 //Do pullrequest in web-interface
 
