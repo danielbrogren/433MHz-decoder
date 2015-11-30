@@ -34,13 +34,13 @@ int main(int argc, char **argv)
 		perror("open infile");
 		exit(1);
 	}
-/*
+
 	fd_out = creat(argv[optind+1], 0660);
 	if (fd_out < 0) {
 		perror("open outfile");
 		exit(1);
 	}
-*/
+
 	while (1) {
 		int rc;
 		float fl;
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 			exit(1);
 		} else if (rc == 0)
 			break;
-		
+
 //printf(": %f :", fl);
 
 		if(fl > 0.01)
@@ -66,13 +66,14 @@ int main(int argc, char **argv)
 			count_0++;
 			count_1=0;
 		}
-		
+
 		if(count_1 % 5 ==3)
 		{
 			bit=1;
 
 		if (opt_verbose)
-			printf("%1u", bit);
+			//printf("%1u", bit);
+			write(fd_out, &bit, 1);
 
 		}
 		if(count_0 % 5 ==3)
@@ -80,12 +81,13 @@ int main(int argc, char **argv)
 			bit=0;
 
 		if (opt_verbose)
-			printf("%1u", bit);
+			//printf("%1u", bit);
+			write(fd_out, &bit, 1);
 
 		}
 
 
-
+// istället för att köra med verbose-flagga borde en fil användas som kan vara tex dev/stdout
 /*
 		rc = write(fd_out, bits, 2);
 		if (rc < 0) {

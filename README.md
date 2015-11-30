@@ -3,10 +3,10 @@ Decoder for 433MHz using SDR
 
 
 // Build and use
-gcc -o float_to_bit float_to_bit.c
+make
 rm /tmp/gnu_radio_out
 mkfifo /tmp/gnu_radio_out
-./float_to_bit -v /tmp/gnu_radio_out /dev/stdout
+./float_to_bit -v gnu_radio_out /dev/stdout | ./rx_decoder_433MHz /dev/stdin 0
 //Start GNU-radio with 433MHz-Decoder.grc
 //or
 python decoder_433MHz.py
