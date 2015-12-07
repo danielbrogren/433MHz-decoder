@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-	int fd, fd_out, opt;
+	int fd, fd_out, opt, num_samp_per_sym;
 
 	int opt_verbose = 0;
 
@@ -24,8 +24,8 @@ int main(int argc, char **argv)
 		}
 	}
 
-	if (argc <= optind+1) {
-		fprintf(stderr, "Usage: %s [-v] <infile> <outfile>\n", argv[0]);
+	if (argc <= optind+2) {
+		fprintf(stderr, "Usage: %s [-v] <infile> <outfile> <samp/symbol>\n", argv[0]);
 		exit(2);
 	}
 
@@ -41,6 +41,18 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
+    num_samp_per_sym = 5;
+    char *p;
+    num_samp_per_sym = strtol(argv[optind+2], &p, 10);
+    if(num_samp_per_sym < 5)
+    {
+		fprintf(stderr, "the number of samples per symbol must be > 4");
+		exit(2);
+    }
+    if(opt_verbose){
+        printf(" \n num_samp_per_sym: %i \n", num_samp_per_sym);
+    }
+
 	while (1) {
 		int rc;
 		float fl;
@@ -54,8 +66,6 @@ int main(int argc, char **argv)
 		} else if (rc == 0)
 			break;
 
-//printf(": %f :", fl);
-
 		if(fl > 0.01)
 		{
 			count_1++;
@@ -67,35 +77,23 @@ int main(int argc, char **argv)
 			count_1=0;
 		}
 
-		if(count_1 % 5 ==3)
+		if(count_1 % num_samp_per_sym == num_samp_per_sym -2)
 		{
 			bit=1;
-
-		if (opt_verbose)
-			//printf("%1u", bit);
+            if(opt_verbose){
+                printf("%1u", bit);
+                }
 			write(fd_out, &bit, 1);
-
 		}
-		if(count_0 % 5 ==3)
+
+		if(count_0 % num_samp_per_sym == num_samp_per_sym -2)
 		{
 			bit=0;
-
-		if (opt_verbose)
-			//printf("%1u", bit);
+            if(opt_verbose){
+                printf("%1u", bit);
+                }
 			write(fd_out, &bit, 1);
-
 		}
-
-
-// istället för att köra med verbose-flagga borde en fil användas som kan vara tex dev/stdout
-/*
-		rc = write(fd_out, bits, 2);
-		if (rc < 0) {
-			perror("write");
-			exit(1);
-		} else if (rc == 0)
-			break;
-*/
-	}
+	}// End while
 	exit(0);
 }

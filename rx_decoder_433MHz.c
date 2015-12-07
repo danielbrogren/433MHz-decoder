@@ -38,9 +38,9 @@ int i;
 int firstOne =0;
 //
 
-if(rxInfo->dataStop > 10)
+if(rxInfo->dataStop > 20)//TODO
 {
-printf("datadone");
+printf("datadone %i ",  rxInfo->dataStop);
 for(i=0; i<rxInfo->dataStop; i++)
 {
     if(rxInfo->data[i] == 1)
