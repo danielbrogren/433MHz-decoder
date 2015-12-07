@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<block>
+  <name>clock_detector</name>
+  <key>ask_decode_clock_detector</key>
+  <category>ask_decode</category>
+  <import>import ask_decode</import>
+  <make>ask_decode.clock_detector($threshold, $target_rate, $target_samp_per_sym)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+<param>
+    <name>threshold</name>
+    <key>threshold</key>
+    <type>float</type>
+  </param>
+  <param>
+    <name>target_rate</name>
+    <key>target_rate</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>target_samp_per_sym</name>
+    <key>target_samp_per_sym</key>
+    <type>int</type>
+  </param>
+
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+	<source>
+		<name>samp_per_symb</name>
+		<type>message</type>
+                <optional>1</optional>
+	</source>
+
+	<source>
+		<name>samp_adjust</name>
+		<type>message</type>
+                <optional>1</optional>
+	</source>
+  </source>
+</block>

@@ -1,0 +1,70 @@
+/* -*- c++ -*- */
+/* 
+ * Copyright 2015 <+YOU OR YOUR COMPANY+>.
+ * 
+ * This is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3, or (at your option)
+ * any later version.
+ * 
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this software; see the file COPYING.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#ifndef INCLUDED_ASK_DECODE_CLOCK_DETECTOR_IMPL_H
+#define INCLUDED_ASK_DECODE_CLOCK_DETECTOR_IMPL_H
+
+#include <ask_decode/clock_detector.h>
+
+namespace gr {
+  namespace ask_decode {
+
+    class clock_detector_impl : public clock_detector
+    {
+     private:
+      float d_threshold;
+
+	float d_last_sample;
+	int d_count_positive_sample;  //samples to flank
+	int d_count_negative_sample;	
+
+	int d_count_positive_flanks;
+	int d_count_negative_flanks;
+
+	int d_positive_flank[500];
+	int d_negative_flank[500];
+	int d_samp_adjust;
+	float estiamated_samples_per_sym;
+	int d_target_samp_per_sym;
+	int d_target_rate;
+
+	pmt::pmt_t d_samp_per_symb_port;
+	pmt::pmt_t d_samp_adjust_port;
+
+     public:
+      clock_detector_impl(float threshold, int target_rate, int target_samp_per_sym);
+      ~clock_detector_impl();
+
+      // Where all the action really happens
+      int work(int noutput_items,
+	       gr_vector_const_void_star &input_items,
+	       gr_vector_void_star &output_items);
+
+	float get_ask_samp_per_sym(const float &sample);
+	float samp_per_symb();
+	int samp_adjust();
+
+    };
+
+  } // namespace ask_decode
+} // namespace gr
+
+#endif /* INCLUDED_ASK_DECODE_CLOCK_DETECTOR_IMPL_H */
+

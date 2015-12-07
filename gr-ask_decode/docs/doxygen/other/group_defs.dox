@@ -1,0 +1,7 @@
+/*!
+ * \defgroup block GNU Radio ASK_DECODE C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the ASK_DECODE GNU Radio
+ *        module are listed here or in the subcategories below.
+ *
+ */
+
